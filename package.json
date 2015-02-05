@@ -1,0 +1,27 @@
+{
+  "name": "trip-planner",
+  "version": "0.0.0",
+  "description": "Trip Planner workshop at Fullstack Academy",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/covlllp/fullstack-trip-planner.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/covlllp/fullstack-trip-planner/issues"
+  },
+  "dependencies": {
+    "morgan": "~1.5.1",
+    "body-parser": "~1.11.0",
+    "express": "~4.11.2",
+    "swig": "~1.4.2",
+    "mongoose": "~3.8.22",
+    "node-sass-middleware": "~0.4.0"
+  }
+}
