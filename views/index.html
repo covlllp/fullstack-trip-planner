@@ -2,89 +2,93 @@
 
 {% block body %}
 <div class="section">
-	<div class="col-lg-8 no-padding">
+	<div class="col-md-8 col-xs-12 no-padding">
 		<div id="google_map"></div>
 	</div>
-	<div class="col-lg-4 extra-padding">
-		<div class="section panel panel-default">
-			<div class="panel-body">
-				<div class="form-group">
-					<label for="Hotels">Hotels</label>
-					<div class="row">
-						<div class="col-lg-10">
-							<select class="form-control">
-								{% for hotel in hotels %}
-									<option>{{hotel.name}}</option>
-								{% endfor %}
-							</select>
-						</div>
-						<div class="col-lg-2">
-							<a class="btn btn-primary round btn-sm" role="button">+</a>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="Restaurants">Restaurants</label>
-					<div class="row">
-						<div class="col-lg-10">
-							<select class="form-control">
-								{% for restaurant in restaurants %}
-									<option>{{restaurant.name}}</option>
-								{% endfor %}
-							</select>
-						</div>
-						<div class="col-lg-2">
-							<a class="btn btn-primary round btn-sm" role="button">+</a>
+	<div class="extra-padding col-md-4 col-xs-12">
+		<div class="col-md-12 col-xs-12 col-sm-6">
+			<div class="section panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label for="Hotels">Hotels</label>
+						<div class="row">
+							<div class="col-xs-10">
+								<select class="form-control">
+									{% for hotel in hotels %}
+										<option>{{hotel.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="col-xs-2 some-padding">
+								<a class="btn btn-primary round btn-sm center-block" role="button">+</a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="Things To Do">Things To Do</label>
-					<div class="row">
-						<div class="col-lg-10">
-							<select class="form-control">
-								{% for thingToDo in thingsToDo %}
-									<option>{{thingToDo.name}}</option>
-								{% endfor %}
-							</select>
+					<div class="form-group">
+						<label for="Restaurants">Restaurants</label>
+						<div class="row">
+							<div class="col-xs-10">
+								<select class="form-control">
+									{% for restaurant in restaurants %}
+										<option>{{restaurant.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="col-xs-2 some-padding">
+								<a class="btn btn-primary round btn-sm center-block" role="button">+</a>
+							</div>
 						</div>
-						<div class="col-lg-2">
-							<a class="btn btn-primary round btn-sm" role="button">+</a>
+					</div>
+					<div class="form-group">
+						<label for="Things To Do">Things To Do</label>
+						<div class="row">
+							<div class="col-xs-10">
+								<select class="form-control">
+									{% for thingToDo in thingsToDo %}
+										<option>{{thingToDo.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="col-xs-2 some-padding">
+								<a class="btn btn-primary round btn-sm center-block" role="button">+</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-12 text-center">
-			<h3>Day 1</h3>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<form class="form-inline">
-					<a class="btn btn-info round btn-sm" role="button">1</a>
-					<a class="btn btn-info round btn-sm" role="button">2</a>
-					<a class="btn btn-info round btn-sm" role="button">+</a>
-				</form>
-			</div>
-			<div class="panel-body">
-				<label for="MyHotel">My Hotel</label>
-				<ul class="list-group">
-					<li class="list-group-item">
-						Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-				</ul><label for="MyRestaurant">My Restaurants</label>
-				<ul class="list-group">
-					<li class="list-group-item">
-						Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-					</li>
-					<li class="list-group-item">
-						Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-					</li>
-				</ul><label for="MyThings">My Things To Do</label>
-				<ul class="list-group">
-					<li class="list-group-item">
-						Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-					</li>
-				</ul>
+		<div class="col-md-12 col-xs-12 col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="col-lg-12 text-center">
+						<h3>Day 1</h3>
+					</div>
+					<form class="form-inline">
+						<a class="btn btn-info round btn-sm" role="button">1</a>
+						<a class="btn btn-info round btn-sm" role="button">2</a>
+						<a class="btn btn-info round btn-sm" role="button">+</a>
+					</form>
+				</div>
+				<div class="panel-body">
+					<label for="MyHotel">My Hotel</label>
+					<ul class="list-group">
+						<li class="list-group-item">
+							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
+					</ul><label for="MyRestaurant">My Restaurants</label>
+					<ul class="list-group">
+						<li class="list-group-item">
+							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
+						</li>
+						<li class="list-group-item">
+							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
+						</li>
+					</ul><label for="MyThings">My Things To Do</label>
+					<ul class="list-group">
+						<li class="list-group-item">
+							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
