@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 // set up server
 var app = express();
 app.engine('html', swig.renderFile);
+swig.setDefaults({cache: false});
 
 
 
@@ -18,7 +19,7 @@ app.set('view engine', 'html');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 app.use(
 	sass({
 		src: __dirname + '/assets',
@@ -26,6 +27,7 @@ app.use(
 		debug: true
 	})
 );
+app.use(express.static(path.join(__dirname, 'public')));
 
 // set up routes
 var routes = require('./routes');
