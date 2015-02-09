@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 	$('#day-title').next().on('click', function() {
 		var day = getDay();
-		var day_num = day.substring(4, day.length);
+		var day_num = day.substring(4, day.length) * 1;
 
 		deleteDay();
 		while (data.hasOwnProperty('Day ' + (day_num + 1))) {
@@ -87,13 +87,15 @@ function loadDay (day) {	// day is a string
 }
 
 function updateMap () {
+	var flag = false;
 	var bounds = new google.maps.LatLngBounds();
 	$('#my-panel ul button').each(function() {
+		flag = true;
 		var selected = $(this).parent().find('span').text();
 		var marker = $(this).data(selected);
 		bounds.extend(marker.position);
 	});
-	map.fitBounds(bounds);
+	if (flag) map.fitBounds(bounds);
 }
 
 
