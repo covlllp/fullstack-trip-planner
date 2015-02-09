@@ -36,6 +36,7 @@
 		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfQxgWt-LSZcEmTEN8581Uq9SzZHnpuys&sensor=true"></script>
+		<script src="/js/application.js"></script>
 		<script>
 		function initialize_gmaps() {
 		    // initialize new google maps LatLng object
@@ -50,7 +51,7 @@
 		    // get the maps div's HTML obj
 		    var map_canvas_obj = document.getElementById("map-canvas");
 		    // initialize a new Google Map with the options
-		    var map = new google.maps.Map(map_canvas_obj, mapOptions);
+		    map = new google.maps.Map(map_canvas_obj, mapOptions);
 		    // Add the marker to the map
 		    var marker = new google.maps.Marker({
 		        position: myLatlng,
@@ -76,19 +77,19 @@
 		        opts.map = map;
 		        var marker = new google.maps.Marker(opts);
 		    }
-		    drawLocation(hotelLocation, {
-		        icon: '/images/lodging_0star.png'
-		    });
-		    restaurantLocations.forEach(function (loc) {
-		        drawLocation(loc, {
-		            icon: '/images/restaurant.png'
-		        });
-		    });
-		    thingToDoLocations.forEach(function (loc) {
-		        drawLocation(loc, {
-		            icon: '/images/star-3.png'
-		        });
-		    });
+		    // drawLocation(hotelLocation, {
+		    //     icon: '/images/lodging_0star.png'
+		    // });
+		    // restaurantLocations.forEach(function (loc) {
+		    //     drawLocation(loc, {
+		    //         icon: '/images/restaurant.png'
+		    //     });
+		    // });
+		    // thingToDoLocations.forEach(function (loc) {
+		    //     drawLocation(loc, {
+		    //         icon: '/images/star-3.png'
+		    //     });
+		    // });
 		}
 
 		$(document).ready(function() {
