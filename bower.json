@@ -1,9 +1,9 @@
 {
-  "name": "trip-planner",
+  "name": "tripplanner",
   "version": "0.0.0",
-  "homepage": "https://github.com/covlllp/fullstack-trip-planner",
+  "homepage": "https://github.com/FullstackAcademy/canonical-solutions",
   "authors": [
-    "Colin VanLang <colinvanlang@gmail.com>"
+    "Omri Bernstein <hippiccolo@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [

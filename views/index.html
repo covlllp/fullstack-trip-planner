@@ -1,121 +1,101 @@
 {% extends 'layout.html' %}
 
-{% block body %}
-<div class="section">
-	<div class="col-lg-8 col-xs-12 no-padding">
-		<div id="google_map"></div>
+{% block title %}Your Trip{% endblock %}
+
+{% block content %}
+<div id="app" class="clearfix">
+	<div class="map-container col-sm-8 col-lg-9">
+		<div>
+			<div id="map-canvas"></div>
+		</div>
 	</div>
-	<div class="extra-padding col-lg-4 col-xs-12">
-		<div class="col-lg-12 col-xs-12 col-sm-6">
-			<div class="section panel panel-default">
+	<div id="control-panel" class="col-sm-4 col-lg-3 clearfix">
+		<div class="col-xs-6 col-sm-12">
+			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="form-group">
-						<label for="Hotels">Hotels</label>
-						<div class="row">
-							<div class="col-xs-10">
-								<select class="form-control">
-									{% for hotel in hotels %}
-										<option>{{hotel.name}}</option>
-									{% endfor %}
-								</select>
-							</div>
-							<div class="col-xs-2 some-padding">
-								<a class="btn btn-primary round btn-sm center-block" role="button">+</a>
-							</div>
-						</div>
+					<div>
+						<h4>Hotels</h4>
+						<select>
+						{% for hotel in all_hotels %}
+							<option>{{ hotel.name }}</option>
+						{% endfor %}
+						</select>
+						<button class="btn btn-primary btn-circle pull-right">+</button>
 					</div>
-					<div class="form-group">
-						<label for="Restaurants">Restaurants</label>
-						<div class="row">
-							<div class="col-xs-10">
-								<select class="form-control">
-									{% for restaurant in restaurants %}
-										<option>{{restaurant.name}}</option>
-									{% endfor %}
-								</select>
-							</div>
-							<div class="col-xs-2 some-padding">
-								<a class="btn btn-primary round btn-sm center-block" role="button">+</a>
-							</div>
-						</div>
+					<div>
+						<h4>Restaurants</h4>
+						<select>
+						{% for restaurant in all_restaurants %}
+							<option>{{ restaurant.name }}</option>
+						{% endfor %}
+						</select>
+						<button class="btn btn-primary btn-circle pull-right">+</button>
 					</div>
-					<div class="form-group">
-						<label for="Things To Do">Things To Do</label>
-						<div class="row">
-							<div class="col-xs-10">
-								<select class="form-control">
-									{% for thingToDo in thingsToDo %}
-										<option>{{thingToDo.name}}</option>
-									{% endfor %}
-								</select>
-							</div>
-							<div class="col-xs-2 some-padding">
-								<a class="btn btn-primary round btn-sm center-block" role="button">+</a>
-							</div>
-						</div>
+					<div>
+						<h4>Things To Do</h4>
+						<select>
+						{% for thingToDo in all_things_to_do %}
+							<option>{{ thingToDo.name }}</option>
+						{% endfor %}
+						</select>
+						<button class="btn btn-primary btn-circle pull-right">+</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-12 col-xs-12 col-sm-6">
-			<div class="panel panel-default no-bot-margin">
+		<div class="col-xs-6 col-sm-12">
+			<h3>
+				<span id="day-title">
+					<span>Day 2</span>
+					<button class="btn btn-xs btn-danger remove btn-circle">x</button>
+				</span>
+			</h3>
+			<div class="panel panel-default">
 				<div class="panel-heading">
-					<div class="col-lg-12 text-center">
-						<h3 class="panel-title vert-center inline-block">Day 2</h3>
-						<a class="btn btn-danger x-round btn-xs" role="button">-</a>
+					<div class="day-buttons">
+						<button class="btn btn-circle day-btn">1</button>
+						<button class="btn btn-circle day-btn current-day">2</button>
+						<button class="btn btn-circle day-btn">3</button>
+						<button class="btn btn-circle day-btn">+</button>
 					</div>
-					<form class="form-inline">
-						<a class="btn btn-info round btn-sm" role="button">1</a>
-						<a class="btn btn-info round btn-sm selected-info" role="button">2</a>
-						<a class="btn btn-info round btn-sm" role="button">+</a>
-					</form>
 				</div>
 				<div class="panel-body">
-					<label for="MyHotel">My Hotel</label>
-					<ul class="list-group">
-						<li class="list-group-item">
-							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-					</ul><label for="MyRestaurant">My Restaurants</label>
-					<ul class="list-group">
-						<li class="list-group-item">
-							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-						</li>
-						<li class="list-group-item">
-							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-						</li>
-					</ul><label for="MyThings">My Things To Do</label>
-					<ul class="list-group">
-						<li class="list-group-item">
-							Hellllo	<a class="btn btn-danger x-round btn-xs pull-right" role="button">-</a>
-						</li>
-					</ul>
+					<div>
+						<h4>My Hotel</h4>
+						<ul class="list-group">
+							<div class="itinerary-item">
+								<span class="title">Andaz Wall Street</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>
+							</div>
+						</ul>
+					</div>
+					<div>
+						<h4>My Restaurants</h4>
+						<ul class="list-group">
+							<div class="itinerary-item">
+								<span class="title">Bouley</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>
+							</div>
+							<div class="itinerary-item">
+								<span class="title">The Capital Grille</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>
+							</div>
+						</ul>
+					</div>
+					<div>
+						<h4>My Things To Do</h4>
+						<ul class="list-group">
+							<div class="itinerary-item">
+								<span class="title">Mahayana Buddhist Temple Association</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>
+							</div>
+							<div class="itinerary-item">
+								<span class="title">South Street Seaport</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>
+							</div>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCayZINOzzP2IwkzdMb-PWBiDVFSDv4Gto">
-</script>
-<script>
-	function initialize() {
-		var myLatlng = new google.maps.LatLng(40.705786,-74.007672);
-		var mapOptions = {
-			center: myLatlng,
-			zoom: 16,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-		var map = new google.maps.Map(document.getElementById('google_map'),
-			mapOptions);
-
-		var marker = new google.maps.Marker({
-			position: myLatlng,
-			map: map,
-			title:"Hello World!"
-		});
-	}
-	google.maps.event.addDomListener(window, 'load', initialize);
-</script>
 <script>
 {% autoescape false %}
 var all_hotels = {{ hotels | json }};
@@ -123,4 +103,5 @@ var all_restaurants = {{ restaurants | json }};
 var all_things_to_do = {{ things_to_do | json }};
 {% endautoescape %}
 </script>
+
 {% endblock %}

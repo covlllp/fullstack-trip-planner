@@ -1,26 +1,38 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
+
 var models = require('../models');
-var Counter = require('../async_counter');
 
-router.get('/', function(req, res, next) {
-	var hotels, restaurants, thingsToDo;
-	var counter = new Counter(3, function() {
-		res.render('index',{hotels: hotels, restaurants: restaurants, thingsToDo: thingsToDo});
+router.get('/',
+	function (req, res, next) {
+		models.Hotel
+			.find({})
+			.exec(function (err, hotels) {
+				// attach data to res.locals and then go on
+				res.locals.all_hotels = hotels;
+				next();
+			});
+	},
+	function (req, res, next) {
+		models.ThingToDo
+			.find({})
+			.exec(function (err, thingsToDo) {
+				// attach data to res.locals and then go on
+				res.locals.all_things_to_do = thingsToDo;
+				next();
+			});
+	},
+	function (req, res, next) {
+		models.Restaurant
+			.find({})
+			.exec(function (err, restaurants) {
+				// attach data to res.locals and then go on
+				res.locals.all_restaurants = restaurants;
+				next();
+			});
+	},
+	function (req, res) {
+		// all the data attached to res.locals will now be passed to the index template
+		res.render('index');
 	});
-
-	models.Hotel.find().exec(function(err, async_hotels) {
-		hotels = async_hotels;
-		counter.count();
-	});
-	models.Restaurant.find().exec(function(err, async_restaurant) {
-		restaurants = async_restaurant;
-		counter.count();
-	});
-	models.ThingToDo.find().exec(function(err, async_thingsToDo) {
-		thingsToDo = async_thingsToDo;
-		counter.count();
-	});
-});
 
 module.exports = router;

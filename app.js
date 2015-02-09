@@ -1,52 +1,56 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var swig = require('swig');
-var sass = require('node-sass-middleware');
-var bodyParser = require('body-parser');
+var express = require('express'),
+	logger = require('morgan'),
+	bodyParser = require('body-parser'),
+	swig = require('swig'),
+	sassMiddleware = require('node-sass-middleware');
 
-// set up server
 var app = express();
+
+// set up rendering with swig
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
 app.engine('html', swig.renderFile);
 swig.setDefaults({cache: false});
 
-
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
-
+// log and body parse
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// sass middleware
 app.use(
-	sass({
-		src: __dirname + '/assets',
-		dest: __dirname + '/public',
-		debug: true
-	})
+    sassMiddleware({
+        src: __dirname + '/assets',
+        dest: __dirname + '/public',
+        debug: true
+    })
 );
-app.use(express.static(path.join(__dirname, 'public')));
 
-// set up routes
-var routes = require('./routes');
-app.use('/', routes);
+// serve static files
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use(express.static(__dirname + '/public'));
 
+// serve root
+app.get('/', require('./routes'));
 
-// error handlers
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
-app.use(function(req, res, next) {
-	res.status(err.status || 500);
-	console.log({error: err});
-	res.send();
-	// res.render( // Fill this in with an error page
-	// 	)
-})
+// handle any errors
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    console.log({error: err});
+    res.render('error', {
+    	error: err
+    });
+});
 
-module.exports = app;
+// listen on a port
+var port = 3000;
+app.listen(port, function () {
+	console.log('The server is listening closely on port', port);
+});

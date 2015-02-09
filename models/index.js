@@ -1,11 +1,8 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/tripplanner');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'mongodb connection error:'));
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 
-var Schema = mongoose.Schema;
-
-var placeSchema = new Schema({
+var placeSchema = new mongoose.Schema({
 	address: String,
 	city: String,
 	state: String,
@@ -13,34 +10,29 @@ var placeSchema = new Schema({
 	location: [Number]
 });
 
-var hotelSchema = new Schema({
+var hotelSchema = new mongoose.Schema({
 	name: String,
-	place: String,
+	place: [placeSchema],
 	num_stars: {type: Number, min: 1, max: 5},
-	amenities: [String]
+	amenities: String
 });
 
-var thingToDoSchema = new Schema({
+var thingToDoSchema = new mongoose.Schema({
 	name: String,
-	place: String,
+	place: [placeSchema],
 	age_range: String
 });
 
-var restaurantSchema = new Schema({
+var restaurantSchema = new mongoose.Schema({
 	name: String,
-	place: String,
-	cuisine: [String],
+	place: [placeSchema],
+	cuisine: String,
 	price: {type: Number, min: 1, max: 5}
 });
 
-var Place = mongoose.model('Place', placeSchema);
-var Hotel = mongoose.model('Hotel', hotelSchema);
-var ThingToDo = mongoose.model('ThingToDo', thingToDoSchema);
-var Restaurant = mongoose.model('Restaurant', restaurantSchema);
-
 module.exports = {
-	Place: Place,
-	Hotel: Hotel,
-	ThingToDo: ThingToDo,
-	Restaurant: Restaurant
-};
+	Place: mongoose.model('Place', placeSchema),
+	Hotel: mongoose.model('Hotel', hotelSchema),
+	ThingToDo: mongoose.model('ThingToDo', thingToDoSchema),
+	Restaurant: mongoose.model('Restaurant', restaurantSchema),
+}
