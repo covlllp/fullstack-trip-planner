@@ -11,85 +11,55 @@
 	</div>
 	<div id="control-panel" class="col-sm-4 col-lg-3 clearfix">
 		<div class="col-xs-6 col-sm-12">
-			<div id="add-panel" class="panel panel-default">
+			<div class="panel panel-default">
 				<div class="panel-body">
-					<div>
+					<div id="all-hotels">
 						<h4>Hotels</h4>
-						<select>
-						{% for hotel in all_hotels %}
-							<option value="{{hotel.name}}">{{ hotel.name }}</option>
-						{% endfor %}
-						</select>
-						<button class="btn btn-primary btn-circle pull-right">+</button>
+						<select></select>
+						<button class="btn btn-primary btn-circle pull-right add">+</button>
 					</div>
-					<div>
+					<div id="all-restaurants">
 						<h4>Restaurants</h4>
-						<select>
-						{% for restaurant in all_restaurants %}
-							<option value="{{restaurant.name}}">{{ restaurant.name }}</option>
-						{% endfor %}
-						</select>
-						<button class="btn btn-primary btn-circle pull-right">+</button>
+						<select></select>
+						<button class="btn btn-primary btn-circle pull-right add">+</button>
 					</div>
-					<div>
+					<div id="all-things-to-do">
 						<h4>Things To Do</h4>
-						<select>
-						{% for thingToDo in all_things_to_do %}
-							<option value="{{thingToDo.name}}">{{ thingToDo.name }}</option>
-						{% endfor %}
-						</select>
-						<button class="btn btn-primary btn-circle pull-right">+</button>
+						<select></select>
+						<button class="btn btn-primary btn-circle pull-right add">+</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-xs-6 col-sm-12">
 			<h3>
-				<span>
-					<span id="day-title">Day 1</span>
+				<span id="day-title">
+					<span>Day 1</span>
 					<button class="btn btn-xs btn-danger remove btn-circle">x</button>
 				</span>
 			</h3>
-			<div id="my-panel" class="panel panel-default">
+			<div class="panel panel-default">
 				<div class="panel-heading">
-					<div class="day-buttons">
-						<button class="btn btn-circle day-btn current-day">1</button>
-						<button class="btn btn-circle day-btn">+</button>
-					</div>
+					<span class="day-buttons"></span>
+					<button id="add-day" class="btn btn-circle day-btn">+</button>
 				</div>
 				<div class="panel-body">
-					<div>
+					<div id="my-hotel">
 						<h4>My Hotel</h4>
-						<ul id="hotels-list" class="list-group">
-<!-- 							<div class="itinerary-item">
-								<span class="title">Andaz Wall Street</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>
-							</div> -->
-						</ul>
+						<ul class="list-group"></ul>
 					</div>
-					<div>
+					<div id="my-restaurants">
 						<h4>My Restaurants</h4>
-						<ul id="restaurants-list" class="list-group">
-						</ul>
+						<ul class="list-group"></ul>
 					</div>
-					<div>
+					<div id="my-things-to-do">
 						<h4>My Things To Do</h4>
-						<ul id="thingstodo-list" class="list-group">
-						</ul>
+						<ul class="list-group"></ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<script>
-{% autoescape false %}
-var models = {
-	hotels: {{ all_hotels | json }},
-	restaurants: {{ all_restaurants | json }},
-	thingstodo: {{ all_things_to_do | json }}
-}
-{% endautoescape %}
-</script>
 
 {% endblock %}
