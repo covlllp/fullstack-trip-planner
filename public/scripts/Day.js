@@ -1,12 +1,36 @@
 var Day;
 
 $(document).ready(function () {
-	Day = function () {
-		this.hotel = null;
-		this.restaurants = [];
-		this.thingsToDo = [];
-		this.number = days.push(this);
+	Day = function (day) {
+		var self = this;
 
+		if (day) {
+			eachKeyValue(day, function(key, val) {
+				if (key == 'hotel') {
+					if (val) self[key] = new Hotel(val, day.number);
+				} else if (key == 'restaurants' || key == 'thingsToDo') {
+					self[key] = val.map(function(obj) {
+						return (key == 'restaurants')
+							? new Restaurant(obj, day.number)
+							: new ThingToDo(obj, day.number);
+					});
+				} else {
+					self[key] = val;
+				}
+			});
+		} else {
+			// this.hotel = null;
+			// this.restaurants = [];
+			// this.thingsToDo = [];
+			this.number = days.push(this);
+
+
+			$.post('/days', {number: this.number}).success(function (data) {
+				eachKeyValue(data, function(key, val) {
+					self[key] = val;
+				});
+			});
+		}
 		this.buildButton()
 			.drawButton();
 	}
@@ -54,15 +78,25 @@ $(document).ready(function () {
 
 	function deleteCurrentDay () {
 		if (days.length > 1) {
-			var index = days.indexOf(currentDay),
-				previousDay = days.splice(index, 1)[0],
-				newCurrent = days[index] || days[index - 1];
-			days.forEach(function (day, idx) {
-				day.number = idx + 1;
-				day.$button.text(day.number);
+			$.ajax({
+				type: 'DELETE',
+				url:'/days/' + currentDay._id
+			}).success(function() {
+				var index = days.indexOf(currentDay),
+					previousDay = days.splice(index, 1)[0],
+					newCurrent = days[index] || days[index - 1];
+				days.forEach(function (day, idx) {
+					day.number = idx + 1;
+					day.$button.text(day.number);
+					$.ajax({
+						type: 'PUT',
+						url: '/days/' + day._id,
+						data: {number: day.number}
+					});
+				});
+				newCurrent.switchTo();
+				previousDay.eraseButton();
 			});
-			newCurrent.switchTo();
-			previousDay.eraseButton();
 		}
 	};
 

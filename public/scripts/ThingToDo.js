@@ -18,20 +18,28 @@ $(document).ready(function () {
 			removed
 				.eraseMarker()
 				.eraseItineraryItem();
+			$.ajax({
+				type: 'DELETE',
+				url: '/days/' + currentDay._id + '/thingsToDo/' + self._id
+			});
 		};
 	});
 
 	// construct a new thing to do for the current day
-	ThingToDo = function (data) {
+	ThingToDo = function (data, day_num) {
 		var self = this;
 		eachKeyValue(data, function (key, val) {
 			self[key] = val;
 		});
 		this.buildMarker()
-			.drawMarker()
 			.buildItineraryItem()
-			.drawItineraryItem();
-		currentDay.thingsToDo.push(this);
+
+		if (day_num == undefined) {
+			currentDay.thingsToDo.push(this);
+			this.drawMarker()
+				.drawItineraryItem();
+			$.post('/days/' + currentDay._id + '/thingsToDo/' + self._id);
+		}
 	}
 
 });

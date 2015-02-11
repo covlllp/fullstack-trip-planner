@@ -4,6 +4,15 @@ $(document).ready(function () {
 	generateAttraction = function (config) {
 		config.$all.find('.add').on('click', function () {
 			var attraction = config.$all.find(':selected').data();
+			if (config.constructor != Hotel) {
+				var select = (config.constructor == Restaurant)
+					? 'restaurants'
+					: 'thingsToDo';
+				for (var i = 0; i < currentDay[select].length; i++) {
+					if (currentDay[select][i]._id == attraction._id)
+						return;
+				};
+			}
 			new config.constructor(attraction);
 		});
 		config.all.forEach(function (attraction) {
